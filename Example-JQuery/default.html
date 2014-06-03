@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Example_JQuery</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.2.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
+
+    <!-- Example_JQuery references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //document.getElementById('foo').innerHTML = "<a href='http://jeffbelback.me'>blog</a>";
+            //document.getElementById('foo').innerHTML = "<blink>Blink is unsafe.</blink>";
+            //document.getElementById('foo').innerHTML = "<!-- Comments are evil too ;-) --> But, they automatically get removed.";
+            //document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">';
+
+            //MSApp.execUnsafeLocalFunction(function () {
+            //    document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">';
+            //});
+            //document.getElementById('foo').innerHTML = toStaticHTML('Password: <input type="password" name="pwd">');
+            
+            //$("#foo").html("<a href='http://jeffbelback.me'>blog</a>");
+            //$("#foo").html("<blink>Blink is unsafe.</blink>");
+            //$("#foo").html("<!-- Comments are evil too ;-) --> But, they automatically get removed.");
+
+            var foo = new Example_ClassLibrary.FooClass();
+        });
+    </script>
+</head>
+<body>
+    <div id="foo"></div>
+    <form>
+    </form>
+
+    <!--<form name="input" action="foo.aspx" method="POST">
+        Username: <input type="text" name="user"> 
+        Password: <input type="password" name="pwd">
+        <input type="submit" value="Submit">
+    </form>-->
+</body>
+</html>
