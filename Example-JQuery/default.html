@@ -14,34 +14,39 @@
     <script src="/js/default.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
+        function record(fn) {
+            var result;
+            try {
+                fn();
+                result = "success";
+            } catch (ex) {
+                result = "<b>FAILURE!!!</b>";
+            }
+            MSApp.execUnsafeLocalFunction(function () {
+                var msg = "<li>" + fn + " - " + result + "</li>";
+                document.getElementById("eventinfo").innerHTML += msg;
+            });
+        }
+
         $(document).ready(function () {
-            //document.getElementById('foo').innerHTML = "<a href='http://jeffbelback.me'>blog</a>";
-            //document.getElementById('foo').innerHTML = "<blink>Blink is unsafe.</blink>";
-            //document.getElementById('foo').innerHTML = "<!-- Comments are evil too ;-) --> But, they automatically get removed.";
-            //document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">';
+            record(function () { document.getElementById('foo').innerHTML = "<a href='http://jeffbelback.me'>blog</a>"; });
+            record(function () { document.getElementById('foo').innerHTML = "<blink>Blink is unsafe.</blink>"; });
+            record(function () { document.getElementById('foo').innerHTML = "<!-- Comments are evil too ;-) --> But, they automatically get removed."; });
+            record(function () { document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">'; });
 
-            //MSApp.execUnsafeLocalFunction(function () {
-            //    document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">';
-            //});
-            //document.getElementById('foo').innerHTML = toStaticHTML('Password: <input type="password" name="pwd">');
+            record(function () { MSApp.execUnsafeLocalFunction(function () { document.getElementById('foo').innerHTML = 'Password: <input type="password" name="pwd">'; }); });
+            record(function () { document.getElementById('foo').innerHTML = toStaticHTML('Password: <input type="password" name="pwd">'); });
             
-            //$("#foo").html("<a href='http://jeffbelback.me'>blog</a>");
-            //$("#foo").html("<blink>Blink is unsafe.</blink>");
-            //$("#foo").html("<!-- Comments are evil too ;-) --> But, they automatically get removed.");
+            record(function () { $("#foo").html("<a href='http://jeffbelback.me'>blog</a>"); });
+            record(function () { $("#foo").html("<blink>Blink is unsafe.</blink>"); });
+            record(function () { $("#foo").html("<!-- Comments are evil too ;-) --> But, they automatically get removed."); });
 
-            var foo = new Example_ClassLibrary.FooClass();
+            document.getElementById('foo').innerHTML = '';
         });
     </script>
 </head>
 <body>
     <div id="foo"></div>
-    <form>
-    </form>
-
-    <!--<form name="input" action="foo.aspx" method="POST">
-        Username: <input type="text" name="user"> 
-        Password: <input type="password" name="pwd">
-        <input type="submit" value="Submit">
-    </form>-->
+    <ul id="eventinfo"></ul>
 </body>
 </html>
