@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>EventsLogger</title>
+    <link href="/css/default.css" rel="stylesheet" />
+    <script type="text/javascript" src="underscore.js"></script>
+
+    <!-- This is required for WinJS.Application events -->
+    <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
+    
+    <!------------------ Templates --------------------------->
+    <script type="text/template" id="event-template">
+        <li>
+            <%= name %>
+            <!--<pre><%= JSON.stringify(args, null, 4) %></pre>-->
+        </li>
+    </script>
+
+    <!------------------ Event Handlers----------------------->
+    <script type="text/javascript">
+        //WinRT
+        Windows.UI.WebUI.WebUIApplication.onactivated = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "Windows.UI.WebUI.WebUIApplication.onactivated", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        };
+        Windows.UI.WebUI.WebUIApplication.onsuspending = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "Windows.UI.WebUI.WebUIApplication.onsuspending", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        }
+
+        Windows.UI.WebUI.WebUIApplication.onresuming = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "Windows.UI.WebUI.WebUIApplication.onresuming", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        }
+
+        //WinJS
+        WinJS.Application.onloaded = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "WinJS.Application.onloaded", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        }
+        WinJS.Application.onactivated = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "WinJS.Application.onactivated", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        };
+        WinJS.Application.onready = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "WinJS.Application.onready", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        }
+        WinJS.Application.oncheckpoint = function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "WinJS.Application.oncheckpoint", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        };
+
+        // Document
+        document.addEventListener("DOMContentLoaded", function (args) {
+            var msgtemplate = document.getElementById("event-template").innerHTML;
+            var msg = _.template(msgtemplate, { name: "DOMContentLoaded", args: args });
+            document.getElementById("eventinfo").innerHTML += msg;
+        });
+
+        WinJS.Application.start();
+    </script>
+</head>
+<body>
+    <ul id="eventinfo"></ul>
+</body>
+</html>
